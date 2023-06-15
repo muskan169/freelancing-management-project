@@ -1,0 +1,14 @@
+<h2>Signup</h2>
+<form method="POST">
+    {% csrf_token %}
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+    <label for="signup_user">Signup as:</label>
+    <select id="signup_user" name="signup_user" required>
+        <option value="client">Client</option>
+        <option value="freelancer">Freelancer</option>
+    </select><br>
+    <input type="submit" value="Signup">
+</form>

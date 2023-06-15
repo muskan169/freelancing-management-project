@@ -3,17 +3,21 @@ from django.contrib.auth.models import User
 
 
 class Client(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
+
 
 class Freelancer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
-    
+
+
 class Project(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
@@ -22,7 +26,7 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
-    
+
 
 class JobPost(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
@@ -31,6 +35,7 @@ class JobPost(models.Model):
 
     def __str__(self):
         return f'{self.project.name} - {self.description}'
+
 
 class JobProposal(models.Model):
     PROPOSAL_CHOICES = (

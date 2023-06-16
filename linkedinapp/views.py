@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.db import models
-from .models import Client, Freelancer
+from .models import Client, Freelancer, Project , JobPost
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
@@ -32,7 +32,24 @@ def login_view(request):
     return render(request, 'login.html')
 
 def client_dashboard(request):
-    return render(request, 'client_dashboard.html')
+    projects = Project.objects.filter(client__user=request.user)
+    return render(request, 'client_dashboard.html', {'projects': projects})
+
+def create_project(request):
+    if request.method == 'POST':
+        project_name = request.POST['project_name']
+        
+        # Get the current user as the client
+        client = Client.objects.get(user=request.user)
+
+        # Create a new Project object
+        project = Project.objects.create(client=client, name=project_name)
+
+        # Redirect to the client dashboard or display a success message
+        return redirect('client_dashboard')
+
+    return render(request, 'create_project.html')
+
 
 def freelancer_dashboard(request):
     return render(request, 'freelancer_dashboard.html')
@@ -59,3 +76,4 @@ def signup_view(request):
 
 
     return render(request, 'signup.html')
+

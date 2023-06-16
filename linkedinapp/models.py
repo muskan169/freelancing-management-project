@@ -21,9 +21,7 @@ class Freelancer(models.Model):
 class Project(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    start_date = models.DateField(null=True, blank=True)
-    end_date = models.DateField(null=True, blank=True)
-
+    
     def __str__(self):
         return self.name
 
@@ -32,6 +30,9 @@ class JobPost(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     description = models.TextField()
     hourly_rate = models.CharField(max_length=10)
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+
 
     def __str__(self):
         return f'{self.project.name} - {self.description}'

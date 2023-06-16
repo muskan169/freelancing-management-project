@@ -1,0 +1,9 @@
+<h3>Create Project</h3>
+<form method="POST" action="{% url 'create_project' %}">
+  {% csrf_token %}
+  
+  <label for="project_name">Project Name:</label>
+  <input type="text" id="project_name" name="project_name" required><br>
+  
+  <input type="submit" value="Save Project">
+</form>

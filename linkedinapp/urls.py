@@ -10,6 +10,7 @@ urlpatterns = [
     path('freelancer/dashboard/', views.freelancer_dashboard, name='freelancer_dashboard'),
     path('signup/', views.signup_view, name='signup'),
     path('successsignup/', views.signup_view, name='signup'),
+    path('create_project/', views.create_project, name='create_project'),
 
 
 

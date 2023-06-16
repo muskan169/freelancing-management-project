@@ -1,2 +1,17 @@
 <h2>Welcome to the Client Dashboard</h2>
 <p>Hello, {{ request.user.username }}!</p>
+
+<h3>Your Projects:</h3>
+<ul>
+  {% for project in projects %}
+    <li>
+      <strong>Project Name:</strong> {{ project.name }}<br>
+    </li>
+  {% empty %}
+    <li>No projects available.</li>
+  {% endfor %}
+</ul>
+
+<h3>Create Project:</h3>
+<a href="{% url 'create_project' %}" class="btn btn-primary">Create Project</a>
+

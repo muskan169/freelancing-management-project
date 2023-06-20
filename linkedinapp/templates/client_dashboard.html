@@ -5,7 +5,9 @@
 <ul>
   {% for project in projects %}
     <li>
-      <strong>Project Name:</strong> {{ project.name }}<br>
+      <a href="{% url 'project_dashboard' project.id %}">
+        <strong></strong> {{ project.name }}
+      </a>
     </li>
   {% empty %}
     <li>No projects available.</li>

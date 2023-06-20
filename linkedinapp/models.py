@@ -27,16 +27,21 @@ class Project(models.Model):
 
 
 class JobPost(models.Model):
+    JOB_STATUS_CHOICES = (
+        ('ACTIVE', 'Active'),
+        ('INACTIVE', 'Inactive'),
+        ('COMPLETED', 'Completed'),
+    )
+
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     description = models.TextField()
     hourly_rate = models.CharField(max_length=10)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
-
+    status = models.CharField(max_length=10, choices=JOB_STATUS_CHOICES, default='ACTIVE')
 
     def __str__(self):
         return f'{self.project.name} - {self.description}'
-
 
 class JobProposal(models.Model):
     PROPOSAL_CHOICES = (

@@ -1,0 +1,8 @@
+<form method="POST" action="{% url 'create_jobproposal' job_post.id %}">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="freelancer_hourly_rate">Hourly Rate:</label>
+    <input type="text" class="form-control" id="freelancer_hourly_rate" name="freelancer_hourly_rate" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit Proposal</button>
+</form>

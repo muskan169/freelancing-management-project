@@ -1,2 +1,22 @@
 <h2>Welcome to the freelancer Dashboard</h2>
 <p>Hello, {{ request.user.username }}!</p>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <a href="{% url 'jobproposal_list' %}" class="btn btn-primary me-md-2">See Your Job Proposals</a>
+</div>
+
+
+<h2>all the jobposts are here </h2>
+
+{% for job_post in job_posts %}
+  <div class="job-post">
+    <h3>{{ job_post.project.name }}</h3>
+    <p>{{ job_post.description }}</p>
+    <p>Hourly Rate: {{ job_post.hourly_rate }}</p>
+    <p>Status: {{ job_post.status }}</p>
+    <a href="{% url 'create_jobproposal' job_post.id %}" class="btn btn-primary">Apply</a>
+  </div>
+{% empty %}
+  <p>No job posts available.</p>
+{% endfor %}
+

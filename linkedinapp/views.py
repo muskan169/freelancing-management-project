@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.db import models
-from .models import Client, Freelancer, Project , JobPost
+from .models import Client, Freelancer, Project , JobPost , JobProposal
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.shortcuts import render, get_object_or_404
+
 
 # Create your views here.
 def home(request):
@@ -70,8 +72,10 @@ def create_jobpost(request, project_id):
     return render(request, 'create_jobpost.html', {'project': project})
 
 def freelancer_dashboard(request):
-    return render(request, 'freelancer_dashboard.html')
-
+    # Retrieve all the job posts
+    job_posts = JobPost.objects.all()
+    
+    return render(request, 'freelancer_dashboard.html', {'job_posts': job_posts})
 
 def signup_view(request):
     if request.method == 'POST':
@@ -93,4 +97,27 @@ def signup_view(request):
 
     return render(request, 'signup.html')
 
+def create_jobproposal(request, jobpost_id):
+    if request.method == 'POST':
+        # Retrieve form data and create a new JobProposal object
+        job_post = JobPost.objects.get(id=jobpost_id)
+        freelancer = Freelancer.objects.get(user=request.user)
+        freelancer_hourly_rate = request.POST['freelancer_hourly_rate']
+        proposal_status = 'OPEN'  # Set the initial status as 'OPEN'
+        
+        job_proposal = JobProposal.objects.create(job_post=job_post, freelancer=freelancer, freelancer_hourly_rate=freelancer_hourly_rate, proposal_status=proposal_status)
+        
+        return redirect('freelancer_dashboard')
 
+    # If the request method is GET, retrieve the job post object and render the create_jobproposal.html template
+    job_post = JobPost.objects.get(id=jobpost_id)
+    return render(request, 'create_jobproposal.html', {'job_post': job_post})
+
+def job_proposal_list(request):
+    # Retrieve the logged-in freelancer
+    freelancer = Freelancer.objects.get(user=request.user)
+
+    # Retrieve all job proposals submitted by the freelancer
+    job_proposals = JobProposal.objects.filter(freelancer=freelancer)
+
+    return render(request, 'jobproposal_list.html', {'job_proposals': job_proposals})

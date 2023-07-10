@@ -1,12 +1,14 @@
-<h2>Welcome to the freelancer Dashboard</h2>
+<<h2>Welcome to the freelancer Dashboard</h2><br>
+<a href="{% url 'logout' %}">Logout</a>
+
 <p>Hello, {{ request.user.username }}!</p>
+{% comment %} <h1>hello, {{ freelancer.name }}</h1> {% endcomment %}
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <a href="{% url 'jobproposal_list' %}" class="btn btn-primary me-md-2">See Your Job Proposals</a>
+  {% comment %} <a href="{% url 'job_proposal_list' jobpost_id=job_post.id %}" class="btn btn-primary me-md-2">See Your Job Proposals</a> {% endcomment %}
 </div>
 
-
-<h2>all the jobposts are here </h2>
+<h2>All the job posts are here</h2>
 
 {% for job_post in job_posts %}
   <div class="job-post">
@@ -14,7 +16,7 @@
     <p>{{ job_post.description }}</p>
     <p>Hourly Rate: {{ job_post.hourly_rate }}</p>
     <p>Status: {{ job_post.status }}</p>
-    <a href="{% url 'create_jobproposal' job_post.id %}" class="btn btn-primary">Apply</a>
+    <a href="{% url 'create_jobproposal' jobpost_id=job_post.id %}" class="btn btn-primary">Apply</a>
   </div>
 {% empty %}
   <p>No job posts available.</p>

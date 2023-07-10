@@ -1,5 +1,6 @@
 <h2>Welcome to the Client Dashboard</h2>
-<p>Hello, {{ request.user.username }}!</p>
+{% comment %} <p>Hello, {{ request.user.username }}!</p> {% endcomment %}
+<h1>Welcome, {{ request.user.username }}</h1>
 
 <h3>Your Projects:</h3>
 <ul>
@@ -15,5 +16,6 @@
 </ul>
 
 <h3>Create Project:</h3>
-<a href="{% url 'create_project' %}" class="btn btn-primary">Create Project</a>
+<a href="{% url 'create_project' %}" class="btn btn-primary">Create Project</a><br>
 
+<a href="{% url 'logout' %}">Logout</a>

@@ -1,0 +1,53 @@
+{% comment %} <h2>Job Proposals</h2>
+
+{% if job_proposals %}
+  <table>
+    <tr>
+      <th>Freelancer Name</th>
+      <th>Hourly Rate</th>
+      <th>Status</th>
+    </tr>
+    {% for proposal in job_proposals %}
+      <tr>
+        <td>{{ proposal.freelancer.user.username }}</td>
+        <td>{{ proposal.freelancer_hourly_rate }}</td>
+        <td>{{ proposal.get_proposal_status_display }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% else %}
+  <p>No job proposals available for this job post.</p>
+{% endif %} {% endcomment %}
+
+<h2>Job Proposals</h2>
+
+{% if job_proposals %}
+  <table>
+    <tr>
+      <th>Freelancer Name</th>
+      <th>Hourly Rate</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+    {% for proposal in job_proposals %}
+      <tr>
+        <td>{{ proposal.freelancer.user.username }}</td>
+        <td>{{ proposal.freelancer_hourly_rate }}</td>
+        <td>{{ proposal.get_proposal_status_display }}</td>
+        <td>
+          {% if proposal.proposal_status == 'OPEN' %}
+            <form method="POST" action="{% url 'accept_proposal' proposal.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary">Accept</button>
+            </form>
+          {% else %}
+            
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+{% else %}
+  <p>No job proposals available for this job post.</p>
+{% endif %}
+

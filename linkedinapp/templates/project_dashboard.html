@@ -1,3 +1,27 @@
+{% comment %} <h2>Project Dashboard</h2>
+<p>Project Name: {{ project.name }}</p>
+
+<h3>Create Job Post:</h3>
+<a href="{% url 'create_jobpost' project.id %}" class="btn btn-primary">Create Job Post</a>
+
+<h3>Job Posts:</h3>
+{% if project.jobpost_set.all %}
+  <ul>
+    {% for jobpost in project.jobpost_set.all %}
+      <li>
+        <strong>Description:</strong>
+        <a href="{% url 'job_proposal_list' jobpost.id %}">{{ jobpost.description }}</a><br>
+        <strong>Hourly Rate:</strong> {{ jobpost.hourly_rate }} <br>
+        <strong>Start Date:</strong> {{ jobpost.start_date }} <br>
+        <strong>End Date:</strong> {{ jobpost.end_date }}<br>
+        <strong>Status:</strong> {{ jobpost.status }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No job posts found for this project.</p>
+{% endif %} {% endcomment %}
+
 <h2>Project Dashboard</h2>
 <p>Project Name: {{ project.name }}</p>
 
@@ -9,15 +33,17 @@
   <ul>
     {% for jobpost in project.jobpost_set.all %}
       <li>
-        <strong>Description:</strong> {{ jobpost.description }} <br>
+        <strong>Description:</strong>
+        <a href="{% url 'job_proposal_list' jobpost.id %}">{{ jobpost.description }}</a><br>
         <strong>Hourly Rate:</strong> {{ jobpost.hourly_rate }} <br>
         <strong>Start Date:</strong> {{ jobpost.start_date }} <br>
         <strong>End Date:</strong> {{ jobpost.end_date }}<br>
-        <strong>status:</strong> {{ jobpost.status }}
-
+        <strong>Status:</strong> {{ jobpost.status }}<br>
+        <strong>Freelancer Name:</strong> {{ jobpost.freelancer.name }}
       </li>
     {% endfor %}
   </ul>
 {% else %}
   <p>No job posts found for this project.</p>
 {% endif %}
+

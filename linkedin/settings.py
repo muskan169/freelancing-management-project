@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'linkedinapp',
+    'django_object_actions',
+
 ]
 
 MIDDLEWARE = [

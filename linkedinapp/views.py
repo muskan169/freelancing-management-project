@@ -7,6 +7,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .permissions import client_required, freelancer_required
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+
 
 
 
@@ -181,3 +184,8 @@ def accept_proposal(request, proposal_id):
 
     return redirect('job_proposal_list', jobpost_id=proposal.job_post.id)
 
+def verify_clients(request, pk):
+    client = get_object_or_404(Client, pk=pk)
+    client.is_verified = True
+    client.save()
+    return HttpResponseRedirect(reverse('admin:linkedinapp_client_changelist'))

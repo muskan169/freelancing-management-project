@@ -1,0 +1,8 @@
+{% extends 'admin/change_list.html' %}
+
+{% block object-tools-items %}
+  {{ block.super }}
+  <li>
+    <a href="{% url 'admin:verify_clients' %}" class="btn btn-primary">Verify All Clients</a>
+  </li>
+{% endblock %}
